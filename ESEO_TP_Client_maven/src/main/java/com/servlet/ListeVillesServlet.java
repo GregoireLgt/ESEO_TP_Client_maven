@@ -12,34 +12,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kong.unirest.GenericType;
-import kong.unirest.HttpResponse;
-import kong.unirest.JsonNode;
-import kong.unirest.Unirest;
-import kong.unirest.UnirestParsingException;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.model.Ville;
 
-@WebServlet("/VilleServlet")
-public class VilleServlet extends HttpServlet{
+import kong.unirest.GenericType;
+import kong.unirest.Unirest;
 
-	/**
-	 * 
-	 */
+/**
+ * Servlet implementation class ListeVillesServlet
+ * 
+ */
+@WebServlet("/ListeVillesServlet")
+public class ListeVillesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static Logger logger = Logger.getLogger(VilleServlet.class.getName());
-
+	private static Logger logger = Logger.getLogger(ListeVillesServlet.class.getName());
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Servlet is called.");
+
+		System.out.println("Servlet 2 is called.");
 		
 		
 		//------------------------Première façon de récupérer la liste des villes (Unirest)---------------------------
-
+	
 		Unirest.config().defaultBaseUrl("http://localhost:8080"); //permet de definir l'URL par defaut
 		Unirest.get("/ville").asString();
 		
@@ -48,7 +45,7 @@ public class VilleServlet extends HttpServlet{
 		System.out.println(listeVilles + "\n");
 		
 		//------------------------Première façon de récupérer la liste des villes (Unirest)---------------------------
-
+	
 		
 		
 	
@@ -62,17 +59,17 @@ public class VilleServlet extends HttpServlet{
 		List<Ville> listeDesVilles = gson.fromJson(Unirest.get("/ville").asString().getBody(), collectionType);
 		
 		//------------------------Autre façon de récupérer la liste des villes (toujours avec Unirest)------------------
-
+	
 		
 		System.out.println("Villes à partir de unirest = " + listeDesVilles.toString());
-
+	
 		
-
+	
 		
 		request.setAttribute("listeDeVilles", listeVilles);
-		this.getServletContext().getRequestDispatcher("/WebContent/index.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WebContent/index2.jsp").forward(request, response);
 	}	
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Ville> listeVilles = Unirest.get("/ville").asObject(new GenericType<List<Ville>>(){}).getBody(); //permet d'obtenir la liste de toutes les villes presentes dans la BDD
 		request.setAttribute("listeDeVilles", listeVilles);
@@ -88,7 +85,7 @@ public class VilleServlet extends HttpServlet{
 		
 		System.out.println("REQUEST GET PARAM = " + request.getParameter("first-city-select"));
 		System.out.println("REQUEST GET PARAM 2 = " + request.getParameter("second-city-select"));
-
+	
 		
 		System.out.println("La première ville est = " + listeVille1.get(0).getLatitude());
 		System.out.println("La première ville est = " + listeVille1.get(0).getLongitude());
@@ -100,8 +97,8 @@ public class VilleServlet extends HttpServlet{
 		Double longitude1 = Double.parseDouble(listeVille1.get(0).getLongitude());
 		Double latitude2 = Double.parseDouble(listeVille2.get(0).getLatitude());
 		Double longitude2 = Double.parseDouble(listeVille2.get(0).getLongitude());
-
-
+	
+	
 		Double distanceEntreDeuxVilles = distanceInKmBetweenEarthCoordinates(latitude1, longitude1, latitude2, longitude2);
 		
 		System.out.println("La distance entre les 2 villes est = " + distanceEntreDeuxVilles + " km (à vol d'oiseau)");
@@ -109,24 +106,24 @@ public class VilleServlet extends HttpServlet{
 		request.setAttribute("distanceEntreDeuxVilles", distanceEntreDeuxVilles);
 		
 		
-		this.getServletContext().getRequestDispatcher("/WebContent/index.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WebContent/index2.jsp").forward(request, response);
 
 	}
-	
+
 	public Double degreesToRadians(Double degrees) {
 		  return (degrees*Math.PI)/ 180;
 	}
 
-	
+
 	public Double distanceInKmBetweenEarthCoordinates(Double lat1, Double lon1, Double lat2, Double lon2) { //coordonnées à aller chercher dans la BDD
 		  Double earthRadiusKm = 6371.0;
-
+	
 		  Double dLat = degreesToRadians(lat2-lat1);
 		  Double dLon = degreesToRadians(lon2-lon1);
-
+	
 		  lat1 = degreesToRadians(lat1);
 		  lat2 = degreesToRadians(lat2);
-
+	
 		  Double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
 		          Math.sin(dLon/2) * Math.sin(dLon/2) * Math.cos(lat1) * Math.cos(lat2); 
 		  
@@ -134,7 +131,4 @@ public class VilleServlet extends HttpServlet{
 		  
 		  return earthRadiusKm * c;
 	}
-	
-	
-
 }
