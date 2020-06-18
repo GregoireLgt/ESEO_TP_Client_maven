@@ -23,8 +23,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.model.Ville;
 
-@WebServlet("/VilleServlet")
-public class VilleServlet extends HttpServlet{
+@WebServlet("/ModifierVilleServlet")
+public class ModifierVilleServlet extends HttpServlet{
 
 	/**
 	 * 
@@ -72,7 +72,7 @@ public class VilleServlet extends HttpServlet{
 
 		
 		request.setAttribute("listeDeVilles", listeVilles);
-		this.getServletContext().getRequestDispatcher("/WebContent/index.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WebContent/modifierVille.jsp").forward(request, response);
 	}	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -111,7 +111,7 @@ public class VilleServlet extends HttpServlet{
 		request.setAttribute("distanceEntreDeuxVilles", distanceEntreDeuxVilles);
 		
 		
-		this.getServletContext().getRequestDispatcher("/WebContent/index.jsp").forward(request, response);
+		this.getServletContext().getRequestDispatcher("/WebContent/modifierVille.jsp").forward(request, response);
 
 	}
 	
