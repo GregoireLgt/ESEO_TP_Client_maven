@@ -35,7 +35,7 @@
 		</div>
 		
 		<br>
-		<form method="POST" action="<c:url value="/ListeVillesServlet" />">
+		<form method="POST" action="<c:url value="/ModifierVilleServlet" />">
 		
 			<table id="example" class="table table-striped table-bordered" style="width:100%">
 				<thead class="thead-dark">

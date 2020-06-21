@@ -83,29 +83,6 @@ public class ListeVillesServlet extends HttpServlet {
 		List<Ville> listeVille2 = gson.fromJson(Unirest.get("/ville/trouver").queryString("nomCommune", request.getParameter("second-city-select"))
 				.asString().getBody(), collectionType);
 		
-		System.out.println("REQUEST GET PARAM = " + request.getParameter("first-city-select"));
-		System.out.println("REQUEST GET PARAM 2 = " + request.getParameter("second-city-select"));
-	
-		
-		System.out.println("La première ville est = " + listeVille1.get(0).getLatitude());
-		System.out.println("La première ville est = " + listeVille1.get(0).getLongitude());
-		System.out.println("La deuxième ville est = " + listeVille2.get(0).getLatitude());
-		System.out.println("La deuxième ville est = " + listeVille2.get(0).getLongitude());
-		
-		
-		Double latitude1 = Double.parseDouble(listeVille1.get(0).getLatitude());
-		Double longitude1 = Double.parseDouble(listeVille1.get(0).getLongitude());
-		Double latitude2 = Double.parseDouble(listeVille2.get(0).getLatitude());
-		Double longitude2 = Double.parseDouble(listeVille2.get(0).getLongitude());
-	
-	
-		Double distanceEntreDeuxVilles = distanceInKmBetweenEarthCoordinates(latitude1, longitude1, latitude2, longitude2);
-		
-		System.out.println("La distance entre les 2 villes est = " + distanceEntreDeuxVilles + " km (à vol d'oiseau)");
-		
-		request.setAttribute("distanceEntreDeuxVilles", distanceEntreDeuxVilles);
-		
-		
 		this.getServletContext().getRequestDispatcher("/WebContent/index2.jsp").forward(request, response);
 
 	}
