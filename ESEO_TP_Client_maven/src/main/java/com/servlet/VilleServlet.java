@@ -69,8 +69,6 @@ public class VilleServlet extends HttpServlet{
 		System.out.println("Villes à partir de unirest = " + listeDesVilles.toString());
 
 		
-
-		
 		request.setAttribute("listeDeVilles", listeVilles);
 		this.getServletContext().getRequestDispatcher("/WebContent/index.jsp").forward(request, response);
 	}	

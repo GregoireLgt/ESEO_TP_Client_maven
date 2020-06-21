@@ -33,7 +33,6 @@
 		        <strong>Voici la liste des villes.</strong> Cliquez sur une ville pour modifier ses données  !
 		    </div>
 		</div>
-		
 		<br>
 		<form method="POST" action="<c:url value="/ModifierVilleServlet" />">
 		
